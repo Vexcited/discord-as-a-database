@@ -25,7 +25,7 @@ class DiscordDatabase {
       prefixUrl: "https://discord.com/api/v9",
       headers: {
         "User-Agent": `${userAgent.name} (${userAgent.url}, ${userAgent.version})`,
-        "Authorization": `Bot ${token}sdfsdf`
+        "Authorization": `Bot ${token}`
       }
     });
   }
