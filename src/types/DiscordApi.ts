@@ -1,13 +1,12 @@
-export interface DiscordApiUser {
+export interface DiscordApiError {
+  message: string;
+  code: number;
+}
+
+export interface DiscordApiCurrentUser {
   id: string;
   username: string;
   discriminator: string;
   avatar: string;
-  verified: boolean;
-  email: string;
-  flags: number;
-  banner: string;
-  accent_color: number;
-  premium_type: 0 | 1 | 2;
-  public_flags: number;
+  bot: boolean;
 }

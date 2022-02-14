@@ -23,7 +23,7 @@
     "prepublishOnly": "yarn test && yarn build"
   },
   "files": [
-    "dist"
+    "dist/src"
   ],
   "dependencies": {
     "got": "^12.0.1"

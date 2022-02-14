@@ -1,7 +1,15 @@
-import type { Got } from "got";
-import type { DiscordApiUser } from "./types/DiscordApi.js";
+import type {
+  Got
+} from "got";
 
-import got from "got";
+import type {
+  DiscordApiCurrentUser,
+  DiscordApiError
+} from "./types/DiscordApi.js";
+
+import got, { HTTPError } from "got";
+
+import showError from "./utils/showError.js";
 
 class DiscordDatabase {
   private api: Got;
@@ -17,17 +25,23 @@ class DiscordDatabase {
       prefixUrl: "https://discord.com/api/v9",
       headers: {
         "User-Agent": `${userAgent.name} (${userAgent.url}, ${userAgent.version})`,
-        "Authorization": `Bot ${token}`
+        "Authorization": `Bot ${token}sdfsdf`
       }
     });
   }
 
   /** Get current bot data. */
-  async getUser () {
-    const user = await this.api.get("users/@me")
-      .json<DiscordApiUser>();
+  async getUser (): Promise<DiscordApiCurrentUser | null> {
+    try {
+      const user = await this.api.get("users/@me")
+        .json<DiscordApiCurrentUser>();
 
-    return user;
+      return user;
+    }
+    catch (e) {
+      showError(e);
+      return null;
+    }
   }
 }
 
