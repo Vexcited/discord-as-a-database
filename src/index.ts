@@ -4,12 +4,14 @@ import type {
 
 import type {
   DiscordApiCurrentUser,
+  DiscordApiGuild,
   DiscordApiError
 } from "./types/DiscordApi.js";
 
 import got, { HTTPError } from "got";
 
 import showError from "./utils/showError.js";
+import Cluster from "./Cluster.js";
 
 class DiscordDatabase {
   private api: Got;
@@ -31,12 +33,29 @@ class DiscordDatabase {
   }
 
   /** Get current bot data. */
-  async getUser (): Promise<DiscordApiCurrentUser | null> {
+  async getUser () {
     try {
       const user = await this.api.get("users/@me")
         .json<DiscordApiCurrentUser>();
 
       return user;
+    }
+    catch (e) {
+      showError(e);
+      return null;
+    }
+  }
+
+  /**
+   * Returns an object of requests for
+   * this cluster (guild).
+   */
+  async getCluster (guild_id: string) {
+    try {
+      const guild_data = await this.api.get(`guilds/${guild_id}`)
+        .json<DiscordApiGuild>();
+
+      return new Cluster(guild_data, this.api);
     }
     catch (e) {
       showError(e);

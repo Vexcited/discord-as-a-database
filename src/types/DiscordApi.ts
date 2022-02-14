@@ -10,3 +10,10 @@ export interface DiscordApiCurrentUser {
   avatar: string;
   bot: boolean;
 }
+
+export interface DiscordApiGuild {
+  id: string;
+  name: string;
+  owner_id: string;
+  description: null | string;
+}
