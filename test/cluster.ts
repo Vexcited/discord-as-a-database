@@ -21,7 +21,7 @@ test("Cluster is available", (t) => {
 
 test("Cluster data object is valid", (t) => {
   if (!cluster?.guild_data)
-    return t.fail("Instance exists but data wasn't fetched (guild_data is undefined).");
+    return t.fail("Instance exists but data wasn't fetched: guild_data is undefined.");
 
   const idExists = typeof cluster?.guild_data.id === "string";
   const nameExists = typeof cluster?.guild_data.name === "string";
@@ -33,4 +33,16 @@ test("Cluster data object is valid", (t) => {
   t.pass();
 });
 
+test("Create a database in cluster", async (t) => {
+  const createdDatabase = await cluster?.createDatabase("test-ava");
 
+  if (!createdDatabase) t.fail("Wasn't able to create a category channel.");
+  t.pass();
+});
+
+test("Get databases from cluster", async (t) => {
+  const databases = await cluster?.getDatabases();
+
+  if (databases === null) t.fail("Databases can't be fetched: is null.");
+  t.pass();
+});
