@@ -4,11 +4,10 @@ import type {
 
 import type {
   DiscordApiCurrentUser,
-  DiscordApiGuild,
-  DiscordApiError
+  DiscordApiGuild
 } from "./types/DiscordApi.js";
 
-import got, { HTTPError } from "got";
+import got from "got";
 
 import showError from "./utils/showError.js";
 import Cluster from "./Cluster.js";
