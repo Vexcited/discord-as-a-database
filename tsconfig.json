@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "Node",
+    "module": "ES2020",
+    "target": "ES2020",
+
+    "outDir": "dist",
+    
+    "strict": true,
+    "sourceMap": true,
+    "declaration": true,
+    "esModuleInterop": true
+  },
+  "include": ["src", "test"],
+  "exclude": ["node_modules", "dist"]
+}

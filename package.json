@@ -1,0 +1,56 @@
+{
+  "name": "discord-as-a-database",
+  "description": "Provides helpers and an API to use Discord-as-a-Database.",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Mikkel RINGAUD",
+    "email": "mikkel@milescode.dev",
+    "url": "https://github.com/Vexcited"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Vexcited/discord-as-a-database"
+  },
+  "type": "module",
+  "exports": "./dist/src/index.js",
+  "engines": {
+    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
+  },
+  "scripts": {
+    "test": "ava",
+    "build": "tsc -p tsconfig.json",
+    "prepublishOnly": "yarn test && yarn build"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "got": "^12.0.1"
+  },
+  "devDependencies": {
+    "@ava/typescript": "^3.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.11.0",
+    "@typescript-eslint/parser": "^5.11.0",
+    "ava": "^4.0.1",
+    "dotenv": "^16.0.0",
+    "eslint": "^8.9.0",
+    "ts-node": "^10.5.0",
+    "typescript": "^4.5.5"
+  },
+  "types": "./dist/src",
+  "ava": {
+    "require": [
+      "dotenv/config"
+    ],
+    "files": [
+      "test/*"
+    ],
+    "extensions": {
+      "ts": "module"
+    },
+    "nodeArguments": [
+      "--loader=ts-node/esm"
+    ]
+  }
+}
