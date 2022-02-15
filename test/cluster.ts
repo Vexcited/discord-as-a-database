@@ -35,14 +35,13 @@ test("Cluster data object is valid", (t) => {
 
 test("Create a database in cluster", async (t) => {
   const createdDatabase = await cluster?.createDatabase("test-ava");
+  if (!createdDatabase)
+    return t.fail("Wasn't able to create a category channel.");
 
-  if (!createdDatabase) t.fail("Wasn't able to create a category channel.");
-  t.pass();
-});
+  const databaseIsCreated = cluster?.databases.filter(db => db.category_data.id === createdDatabase?.category_data.id);
+  if (!databaseIsCreated || databaseIsCreated.length < 1)
+    return t.fail("Database (category channel) wasn't found in cache !");
 
-test("Get databases from cluster", async (t) => {
-  const databases = await cluster?.getDatabases();
-
-  if (databases === null) t.fail("Databases can't be fetched: is null.");
-  t.pass();
+  const tablesNumber = databaseIsCreated[0].tables.length;
+  t.deepEqual(tablesNumber, 0, "Should be 0 as the database is new.");
 });

@@ -51,7 +51,10 @@ class Cluster {
         }
       }).json<DiscordApiChannel>();
 
-      return new Database(response, [] as DiscordApiChannel[], this.api);
+      const database =  new Database(response, [] as DiscordApiChannel[], this.api);
+      this.databases.push(database);
+
+      return database;
     }
     catch (e) {
       showError(e);
