@@ -33,7 +33,7 @@ test("Cluster data object is valid", (t) => {
   t.pass();
 });
 
-test("Create a database in cluster", async (t) => {
+test("Create a simple database", async (t) => {
   const createdDatabase = await cluster?.createDatabase("test-ava");
   if (!createdDatabase)
     return t.fail("Wasn't able to create a category channel.");
@@ -42,6 +42,16 @@ test("Create a database in cluster", async (t) => {
   if (!databaseIsCreated || databaseIsCreated.length < 1)
     return t.fail("Database (category channel) wasn't found in cache !");
 
-  const tablesNumber = databaseIsCreated[0].tables.length;
-  t.deepEqual(tablesNumber, 0, "Should be 0 as the database is new.");
+  const createdTable = await createdDatabase.createTable("hi-mom");
+  if (!createdTable) t.fail("Cannot create a table (text channel) in the database (category).");
+
+  t.pass();
 });
+
+// test("Remove a table from the database object", async (t) => {
+//   const database = cluster?.databases.find(db => db.category_data.name === "test-ava");
+//   if (!database) return t.fail("Created database previously not found.");
+
+//   const isRemoved = await database.deleteTable("hi-mom");
+//   t.true(isRemoved, "Table (text channel) not removed.");
+// });
