@@ -4,7 +4,8 @@ import type {
 
 import type {
   DiscordApiCurrentUser,
-  DiscordApiGuild
+  DiscordApiGuild,
+  DiscordApiChannel
 } from "./types/DiscordApi.js";
 
 import got from "got";
@@ -54,7 +55,10 @@ class DiscordDatabase {
       const guild_data = await this.api.get(`guilds/${guild_id}`)
         .json<DiscordApiGuild>();
 
-      return new Cluster(guild_data, this.api);
+      const guild_channels = await this.api.get(`guilds/${guild_id}/channels`)
+        .json<DiscordApiChannel[]>();
+
+      return new Cluster(guild_data, guild_channels, this.api);
     }
     catch (e) {
       showError(e);
